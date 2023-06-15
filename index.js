@@ -5,7 +5,9 @@ const app = express();
 const port = 8080;
 const bodyParser = require("body-parser");
 const { spawn } = require("child_process");
+const { exec } = require("child_process");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const upload = multer().single("jsonFile");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +15,31 @@ app.use(express.static("static"));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-const upload = multer().single("jsonFile");
+//function to run the k6 command
+function runCommand(command, args) {
+  return new Promise((resolve, reject) => {
+    const process = spawn(command, args);
+    let output = "";
+
+    process.stdout.on("data", (data) => {
+      const newData = data.toString();
+      output += newData;
+    });
+
+    process.stderr.on("data", (data) => {
+      const errorData = data.toString();
+      console.error(errorData);
+    });
+
+    process.on("close", (code) => {
+      if (code === 0) {
+        resolve(output);
+      } else {
+        reject(new Error(`Command exited with code ${code}`));
+      }
+    });
+  });
+}
 
 app.post("/test", upload, (req, res) => {
   const username = req.body.username;
@@ -22,35 +48,8 @@ app.post("/test", upload, (req, res) => {
   const vu = req.body.vu;
   const rampUpDuration = req.body.rampUpDuration;
   const domain = req.body.domainURL;
-  // const apiEndPoint = req.body.apiEndPoint;
-  res.json({username, password, api_key, vu, rampUpDuration, domain});
-  function runCommand(command, args) {
-    return new Promise((resolve, reject) => {
-      const process = spawn(command, args);
-      let output = "";
-
-      process.stdout.on("data", (data) => {
-        const newData = data.toString();
-        output += newData;
-        res.write(newData);
-      });
-
-      process.stderr.on("data", (data) => {
-        const errorData = data.toString();
-        console.error(errorData);
-      });
-
-      process.on("close", (code) => {
-        if (code === 0) {
-          resolve(output);
-        } else {
-          reject(new Error(`Command exited with code ${code}`));
-        }
-      });
-    });
-  }
+  res.json({ username, password, api_key, vu, rampUpDuration, domain });
   const fileContent = req.file.buffer.toString();
-  // console.log("done")
   // Read the uploaded JSON file as a string
   // Parse the uploaded JSON file content as an object
   // const jsonData = JSON.parse(fileContent);
@@ -58,7 +57,6 @@ app.post("/test", upload, (req, res) => {
   //   console.log(jsonData[i]);
   // }
   //Run the k6 script with the uploaded JSON data as an environment variable
-  // console.log(fileContent)
   runCommand("./k6", [
     "run",
     "--out",
@@ -86,9 +84,26 @@ app.post("/test", upload, (req, res) => {
     })
     .catch((error) => {
       console.error("An error occurred while running the command:", error);
-      res.status(500).send(error.message); // Send error message as response
+      // res.status(500).send(error.message); // Send error message as response
+      res.end();
     });
 });
+
+app.post("/abort", (req, res) => {
+  exec(`taskkill /IM k6.exe /F`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`k6 script stopped successfully.`);
+  });
+  res.end();
+});
+
 
 app.use(
   "/db",
@@ -112,10 +127,3 @@ app.use(
   })
 );
 
-// app.get("/db", (req, res) => {
-//   console.log("hi")
-//   fetch("http://127.0.0.1:5665/ui/?endpoint=/").then((r) => {
-//     // console.log(r)
-//     return r.text()
-//   }).then(d => { console.log(d); res.send(d);});
-// });
