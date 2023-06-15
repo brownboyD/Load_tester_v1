@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mango Tester</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container {
+        display: flex;
+      }
+
+      .left-column {
+        flex: 1;
+        /* background-color: lightblue; */
+        padding: 20px;
+      }
+
+      .right-column {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .right-column .card {
+        flex: 1;
+        /* background-color: lightgray; */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+      .form-div {
+        padding: 20px;
+      }
+    </style>
+   
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <!-- Left Column Content -->
+        <div class="card form-div">
+          <h3>Mango Tester Credentials</h3>
+          <p>Please enter your valid credentials and test sequence file.</p>
+          <form enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                placeholder="Name"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="text"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="api-key">API Key:</label>
+              <input
+                type="text"
+                id="api-key"
+                name="api-key"
+                class="form-control"
+                placeholder="API Key"
+                
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="domainURL">Domain URL:</label>
+              <input
+                type="text"
+                id="domainURL"
+                name="domainURL"
+                class="form-control"
+                placeholder="Domain URL"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="apiEndPoint">Domain URL:</label>
+              <input
+                type="text"
+                id="apiEndPoint"
+                name="apiEndPoint"
+                class="form-control"
+                placeholder="Api End Point"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="rampUpDuration">Rampup Duration:</label>
+              <input
+                type="text"
+                id="rampUpDuration"
+                name="rampUpDuration"
+                class="form-control"
+                placeholder="RampUp Duration"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="vu">Virtual users:</label>
+              <input
+                type="text"
+                id="vu"
+                name="vu"
+                class="form-control"
+                placeholder="No. of Virtual Users"
+                
+              />
+            </div>
+            <div class="form-group">
+              <label for="jsonFile">JSON File:</label>
+              <input
+                type="file"
+                id="jsonFile"
+                name="jsonFile"
+                class="form-control"
+                placeholder="JSON File"
+                accept=".json"
+                
+              />
+            </div>
+            <button type="submit" class="btn btn-primary test">Start Test</button>
+          </form>
+        </div>
+      </div>
+      <div class="right-column">
+        <!-- Right Column Content -->
+        <div class="card">
+          <h3>Terminal output......</h3>
+          <p></p>
+          <div class="output-window" id="outputWindow">
+          </div>
+        </div>
+        <div class="card">
+          <a href = "http://localhost:8080/db" target= "__blank" class="btn btn-primary"><button type="button" class="btn btn-primary"> Go to Dashboard</button></a>
+          <br> <br>
+          <button type="button" class="btn btn-danger">Abort Test</button>
+        </div>
+      </div>
+    </div>
+    <script src = "validationScript.js"></script>
+    <script src = "startTest.js" ></script>
+  </body>
+</html>
