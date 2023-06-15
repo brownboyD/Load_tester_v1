@@ -2,7 +2,7 @@ const username = document.querySelector("#username");
 const password = document.querySelector("#password");
 const api_key = document.querySelector("#api-key");
 const domain = document.querySelector("#domainURL");
-const endPoint = document.querySelector("#apiEndPoint");
+// const endPoint = document.querySelector("#apiEndPoint");
 const rampUpDuration = document.querySelector("#rampUpDuration");
 const vu = document.querySelector("#vu");
 const fileContent = document.querySelector("#jsonFile");
@@ -15,7 +15,7 @@ async function startTest(e) {
     body.append("password", password.value);
     body.append("api-key", api_key.value);
     body.append("domainURL", domain.value);
-    body.append("apiEndPoint", endPoint.value);
+    // body.append("apiEndPoint", endPoint.value);
     body.append("rampUpDuration", rampUpDuration.value);
     body.append("vu", vu.value);
     body.append("jsonFile", fileContent.files[0]);

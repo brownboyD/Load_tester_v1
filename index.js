@@ -22,8 +22,8 @@ app.post("/test", upload, (req, res) => {
   const vu = req.body.vu;
   const rampUpDuration = req.body.rampUpDuration;
   const domain = req.body.domainURL;
-  const apiEndPoint = req.body.apiEndPoint;
-  res.json({username, password, api_key, vu, rampUpDuration, domain, apiEndPoint});
+  // const apiEndPoint = req.body.apiEndPoint;
+  res.json({username, password, api_key, vu, rampUpDuration, domain});
   function runCommand(command, args) {
     return new Promise((resolve, reject) => {
       const process = spawn(command, args);
