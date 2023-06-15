@@ -8,18 +8,21 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel = "stylesheet" href = "./stylesheets/style.css">
-    <style>
-    </style>
-   
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <style></style>
   </head>
   <body>
     <div class="container">
       <div class="left-column">
         <!-- Left Column Content -->
         <div class="card form-div">
-          <h3><strong><img src = "./assets/onlymango.png" class = "logo"> Mango Tester</strong></h3>
-          <hr>
+          <h3>
+            <strong
+              ><img src="./assets/onlymango.png" class="logo" /> Mango
+              Tester</strong
+            >
+          </h3>
+          <hr />
           <p>Please enter your valid credentials and test sequence file.</p>
           <form enctype="multipart/form-data">
             <div class="form-group">
@@ -29,7 +32,7 @@
                 id="username"
                 name="username"
                 class="form-control"
-                placeholder="Name"                
+                placeholder="Name"
               />
             </div>
             <div class="form-group">
@@ -40,7 +43,6 @@
                 name="password"
                 class="form-control"
                 placeholder="Password"
-                
               />
             </div>
             <div class="form-group">
@@ -51,7 +53,6 @@
                 name="api-key"
                 class="form-control"
                 placeholder="API Key"
-                
               />
             </div>
 
@@ -63,7 +64,6 @@
                 name="domainURL"
                 class="form-control"
                 placeholder="Domain URL"
-                
               />
             </div>
             <div class="form-group">
@@ -74,7 +74,16 @@
                 name="rampUpDuration"
                 class="form-control"
                 placeholder="RampUp Duration"
-                
+              />
+            </div>
+            <div class="form-group">
+              <label for="steadyStateDuration">Steady State Duration:</label>
+              <input
+                type="text"
+                id="steadyStateDuration"
+                name="steadyStateDuration"
+                class="form-control"
+                placeholder="Steady State test Duration"
               />
             </div>
             <div class="form-group">
@@ -85,7 +94,6 @@
                 name="vu"
                 class="form-control"
                 placeholder="No. of Virtual Users"
-                
               />
             </div>
             <div class="form-group">
@@ -97,30 +105,39 @@
                 class="form-control"
                 placeholder="JSON File"
                 accept=".json"
-                
               />
             </div>
-            <button type="submit" class="btn btn-primary test">Start Test</button>
+            <button type="submit" class="btn btn-primary test">
+              Start Test
+            </button>
           </form>
         </div>
       </div>
       <div class="right-column">
         <!-- Right Column Content -->
-        <div class="card">
-          <h3>Terminal output......</h3>
-          <p></p>
-          <div class="output-window" id="outputWindow">
-          </div>
+        <div class="card animated-text" id="myDiv">
+          <span class="animated-word">Welcome</span>
+          <span class="animated-word">to</span>
+          <span class="animated-word">Mango Tester</span>
         </div>
         <div class="card">
-          <a href = "http://localhost:8080/db" target= "__blank" class="btn btn-primary"><button type="button" class="btn btn-primary"> Go to Dashboard</button></a>
-          <br> <br>
+          <a
+            href="http://localhost:8080/db"
+            target="__blank"
+            class="btn btn-primary"
+            ><button type="button" class="btn btn-primary">
+              Go to Dashboard
+            </button></a
+          >
+          <br />
+          <br />
           <button type="submit" class="btn btn-danger abort">Abort Test</button>
         </div>
       </div>
     </div>
-    <script src = "./scripts/validationScript.js"></script>
-    <script src = "./scripts/startTest.js" ></script>
-    <script src = "./scripts/abortTest.js" ></script>
+    <script src="./scripts/validationScript.js"></script>
+    <script src="./scripts/startTest.js"></script>
+    <script src="./scripts/abortTest.js"></script>
+    <script src="./scripts/changeContent.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@ import { sleep, check } from "k6";
 export let options = {
   stages: [
     { duration: `${__ENV.RAMPUPDURATION}m`, target: Number(__ENV.VU) }, // Ramp up to n virtual users over t minute
-    { duration: "0.1m", target: Number(__ENV.VU) }, // Stay at n virtual users for t minutes
+    { duration: `${__ENV.STEADYSTATEDURATION}m`, target: Number(__ENV.VU) }, // Stay at n virtual users for t minutes
     { duration: `${__ENV.RAMPUPDURATION}m`, target: Number(__ENV.VU) }, // Ramp down to 0 virtual users over t minute
   ],
   thresholds: {

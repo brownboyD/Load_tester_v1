@@ -1,30 +1,69 @@
 .container {
-        display: flex;
-      }
+  display: flex;
+}
 
-      .left-column {
-        flex: 1;
-        /* background-color: lightblue; */
-        padding: 20px;
-      }
+.left-column {
+  flex: 1;
+  /* background-color: lightblue; */
+  padding: 20px;
+}
 
-      .right-column {
-        flex: 2;
-        display: flex;
-        flex-direction: column;
-      }
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
 
-      .right-column .card {
-        flex: 1;
-        /* background-color: lightgray; */
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 20px;
-      }
-      .form-div {
-        padding: 20px;
-      }
-      .logo {
-        width: 1.2em;
-        height: 1em;
-      }
+.right-column .card {
+  flex: 1;
+  /* background-color: lightgray; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.form-div {
+  padding: 20px;
+}
+.logo {
+  width: 1.2em;
+  height: 1em;
+}
+
+
+@keyframes textAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.animated-word {
+  animation: textAnimation 1.5s ease-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.animated-word:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.animated-word:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.animated-word:nth-child(3) {
+  animation-delay: 0.6s;
+}

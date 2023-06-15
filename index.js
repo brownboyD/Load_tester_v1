@@ -47,8 +47,11 @@ app.post("/test", upload, (req, res) => {
   const api_key = req.body["api-key"];
   const vu = req.body.vu;
   const rampUpDuration = req.body.rampUpDuration;
+  const steadyStateDuration = req.body.steadyStateDuration;
   const domain = req.body.domainURL;
-  res.json({ username, password, api_key, vu, rampUpDuration, domain });
+  console.log(steadyStateDuration);
+  console.log(rampUpDuration);
+  res.json({ username, password, api_key, vu, rampUpDuration,steadyStateDuration, domain });
   const fileContent = req.file.buffer.toString();
   // Read the uploaded JSON file as a string
   // Parse the uploaded JSON file content as an object
@@ -71,6 +74,8 @@ app.post("/test", upload, (req, res) => {
     `DOMAIN=${domain}`,
     "--env",
     `RAMPUPDURATION=${rampUpDuration}`,
+    "--env",
+    `STEADYSTATEDURATION=${steadyStateDuration}`,
     "--env",
     `VU=${vu}`,
     "--env",
