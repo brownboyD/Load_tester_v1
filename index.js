@@ -119,7 +119,8 @@ app.post("/test", upload, (req, res) => {
 });
 
 app.post("/abort", (req, res) => {
-  exec(`taskkill /IM k6.exe /F`, (error, stdout, stderr) => {
+  const command = process.platform === "win32" ? "taskkill /IM k6.exe /F" : "pkill -f k6";
+  exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
       return;
@@ -132,6 +133,7 @@ app.post("/abort", (req, res) => {
   });
   res.end();
 });
+
 
 
 // PROXY

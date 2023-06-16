@@ -23,9 +23,11 @@ export function setup() {
     },
   });
 
+  let configData = JSON.parse(__ENV.JSONDATA);
+  let loginapi = configData["login_endpoint"]; 
   console.log("Performing user authorization...");
 
-  let authResponse = http.post(`${__ENV.DOMAIN}/api/login.json`, payload, {
+  let authResponse = http.post(`${__ENV.DOMAIN}/${loginapi}`, payload, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -46,7 +48,8 @@ export default function (data) {
   let headers = {
     Cookie: `_felix_session_id=${data.authToken}`,
   };
-  const jsonData = JSON.parse(__ENV.JSONDATA);
+  let configData = JSON.parse(__ENV.JSONDATA);
+  const jsonData = configData["suites"];
   for (let i = 0; i < jsonData.length; i++) {
     let request = jsonData[i];
     let { method, apiEndPoint, payload } = request;
