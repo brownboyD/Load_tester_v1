@@ -1,0 +1,9 @@
+version: '1'
+  
+services:
+  app:
+    image: ma-load-tester
+    build:
+      context: .
+    ports:
+      - 8080:8080

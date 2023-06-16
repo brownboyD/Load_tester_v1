@@ -15,6 +15,7 @@ app.use(express.static("static"));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+//FUNCTIONS
 //function to run the k6 command
 function runCommand(command, args) {
   return new Promise((resolve, reject) => {
@@ -41,6 +42,29 @@ function runCommand(command, args) {
   });
 }
 
+// function to check if the target server is reachable
+async function isTargetServerReachable() {
+  try {
+    const response = await fetch("http://127.0.0.1:5665/ui/");
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+// function to handle proxy middleware
+function handleProxyMiddleware(target) {
+  return async (req, res, next) => {
+    const isReachable = await isTargetServerReachable();
+    if (!isReachable) {
+      res.redirect("/");
+      return;
+    }
+    next();
+  };
+}
+
+// ROUTES
 app.post("/test", upload, (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -110,8 +134,10 @@ app.post("/abort", (req, res) => {
 });
 
 
+// PROXY
 app.use(
   "/db",
+  handleProxyMiddleware("http://127.0.0.1:5665/ui/?endpoint=/"),
   createProxyMiddleware({
     target: "http://127.0.0.1:5665/ui/?endpoint=/",
     changeOrigin: true,
@@ -123,6 +149,7 @@ app.use(
 
 app.use(
   "/",
+  handleProxyMiddleware("http://127.0.0.1:5665/ui/"),
   createProxyMiddleware({
     target: "http://127.0.0.1:5665/ui/",
     changeOrigin: true,
